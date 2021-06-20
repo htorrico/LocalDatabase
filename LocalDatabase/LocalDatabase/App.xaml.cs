@@ -1,5 +1,6 @@
 ﻿using LocalDatabase.DataContext;
 using LocalDatabase.Interfaces;
+using LocalDatabase.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +14,8 @@ namespace LocalDatabase
         {
             InitializeComponent();
             GetContext().Database.EnsureCreated();
-            MainPage = new MainPage();
+            //MainPage = new AlbumPage();
+            MainPage = new AlbumesPage();
         }
         public static AppDbContext GetContext()
         {
@@ -34,3 +36,4 @@ namespace LocalDatabase
         }
     }
 }
+

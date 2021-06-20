@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LocalDatabase.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace LocalDatabase.Views
         public AlbumesPage()
         {
             InitializeComponent();
+            this.BindingContext = new AlbumesViewModel();
         }
     }
 }

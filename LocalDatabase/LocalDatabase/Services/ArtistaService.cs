@@ -24,9 +24,15 @@ namespace LocalDatabase.Services
         {
             return _context.Artistas.Where(x => x.ArtistaID == ID).FirstOrDefault();
         }
-        public void Insert(Artista item)
+        public void Create(Artista item)
         {
             _context.Artistas.Add(item);
+            _context.SaveChanges();
+        }
+
+        public void CreateList(List<Artista> items)
+        {
+            _context.Artistas.AddRange(items);
             _context.SaveChanges();
         }
         public void Update(Artista item, int ID)

@@ -4,6 +4,7 @@ using LocalDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Xamarin.Forms;
 
@@ -20,14 +21,30 @@ namespace LocalDatabase.Services
             return _context.Albumes.ToList();
         }
 
+        public Album GetByTitulo(string Titulo)
+        {
+            return _context.Albumes.Where(x=>x.Titulo==Titulo).FirstOrDefault();
+        }
+        
+
         public Album GetByID(int ID  )
         {
             return _context.Albumes.Where(x=>x.AlbumID==ID).FirstOrDefault();
         }
-        public void Insert(Album item)
+        public bool Create(Album item)
         {
-            _context.Albumes.Add(item);
-            _context.SaveChanges();
+            try
+            {
+                _context.Albumes.Add(item);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
         }
         public void Update(Album item,int ID)
         {
