@@ -1,5 +1,6 @@
 ﻿using LocalDatabase.Models;
 using LocalDatabase.Services;
+using LocalDatabase.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,26 +12,19 @@ namespace LocalDatabase.ViewModels
 {
     public class AlbumesViewModel : BaseViewModel
     {
-        #region Services
-        private readonly ArtistaService dataServiceArtistas;
+        #region Services        
         private readonly AlbumService dataServiceAlbumes;
+        private readonly ArtistaService dataServiceArtistas;
         #endregion Services
 
         #region Attributes
-        private ObservableCollection<Artista> artistas;
+
         private ObservableCollection<Album> albumes;
-        private Artista selectedArtista;
-        private string titulo;
-        private double precio;
-        private int anio;
+        
         #endregion Attributes
 
         #region Properties
-        public ObservableCollection<Artista> Artistas
-        {
-            get { return this.artistas; }
-            set { SetValue(ref this.artistas, value); }
-        }
+      
 
         public ObservableCollection<Album> Albumes
         {
@@ -38,30 +32,29 @@ namespace LocalDatabase.ViewModels
             set { SetValue(ref this.albumes, value); }
         }
 
-        public Artista SelectedArtista
-        {
-            get { return this.selectedArtista; }
-            set { SetValue(ref this.selectedArtista, value); }
-        }
 
-        public string Titulo
-        {
-            get { return this.titulo; }
-            set { SetValue(ref this.titulo, value); }
-        }
 
-        public double Precio
-        {
-            get { return this.precio; }
-            set { SetValue(ref this.precio, value); }
-        }
 
-        public int Anio
-        {
-            get { return this.anio; }
-            set { SetValue(ref this.anio, value); }
-        }
         #endregion Properties
+
+        #region Command
+
+        public ICommand NeWAlbumCommand
+        {
+            get
+            {
+                return new Command(NeWAlbum);
+            }
+        }
+
+        public ICommand LoadbumesCommand
+        {
+            get
+            {
+                return new Command(LoadAlbumes);
+            }
+        }
+        #endregion
 
         #region Constructor
         public AlbumesViewModel()
@@ -71,73 +64,24 @@ namespace LocalDatabase.ViewModels
 
             //this.CreateArtistas();
 
-            this.LoadArtistas();
+            
             this.LoadAlbumes();
 
-            this.Anio = DateTime.Now.Year;
+            
         }
         #endregion Constructor
 
-        #region Commands
-        public ICommand CreateCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    var newAlbum = new Album()
-                    {
-                        ArtistaID = this.SelectedArtista.ArtistaID,
-                        Titulo = this.Titulo,
-                        Precio = this.Precio,
-                        Anio = this.Anio
-                    };
 
-                    var album = this.dataServiceAlbumes.GetByTitulo(newAlbum.Titulo);
-
-                    if (album == null)
-                    {
-                        if (newAlbum != null)
-                        {
-                            if (this.dataServiceAlbumes.Create(newAlbum))
-                            {
-                                await Application.Current.MainPage.DisplayAlert("Operación Exitosa",
-                                                                                $"Albúm del artista: {this.SelectedArtista.Nombre} " +
-                                                                                $"creado correctamente en la base de datos",
-                                                                                "Ok");
-
-                                this.SelectedArtista = null;
-                                this.Titulo = string.Empty;
-                                this.Precio = 0;
-                                this.Anio = DateTime.Now.Year;
-                            }
-
-                            else
-                                await Application.Current.MainPage.DisplayAlert("Operación Fallida",
-                                                                                $"Error al crear el Albúm en la base de datos",
-                                                                                "Ok");
-                        }
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Validación",
-                                                                              $"Título Repetido",
-                                                                              "Ok");
-                    }
-
-
-                });
-            }
-        }
-        #endregion Commands
 
         #region Methods
-        private void LoadArtistas()
-        {
-            var artistasDB = this.dataServiceArtistas.Get();
-            this.Artistas = new ObservableCollection<Artista>(artistasDB);
-        }
 
+        private void NeWAlbum()
+        {            
+        Application.Current.MainPage.Navigation.PushAsync(new AlbumPage());
+            
+
+
+        }
         private void LoadAlbumes()
         {
             var albumesDB = this.dataServiceAlbumes.Get();

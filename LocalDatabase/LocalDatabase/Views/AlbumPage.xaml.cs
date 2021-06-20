@@ -16,7 +16,7 @@ namespace LocalDatabase.Views
         public AlbumPage()
         {
             InitializeComponent();
-            this.BindingContext = new AlbumesViewModel();
+            this.BindingContext = new AlbumViewModel();
         }
     }
 }
