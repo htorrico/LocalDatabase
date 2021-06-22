@@ -13,9 +13,7 @@ namespace LocalDatabase
         public App()
         {
             InitializeComponent();
-            GetContext().Database.EnsureCreated();
-            //MainPage = new AlbumPage();
-            //MainPage = new AlbumesPage();
+            GetContext().Database.EnsureCreated();          
             MainPage = new NavigationPage( new AlbumesPage());
         }
         public static AppDbContext GetContext()

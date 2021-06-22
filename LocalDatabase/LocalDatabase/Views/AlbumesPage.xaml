@@ -6,12 +6,12 @@
         
         <StackLayout>
 
-            <!--<StackLayout.Padding>
+            <StackLayout.Padding>
                 <OnPlatform 
                     x:TypeArguments="Thickness"
                     Android="20"
                     iOS="50"/>
-            </StackLayout.Padding>-->
+            </StackLayout.Padding>
             <StackLayout Orientation="Horizontal">
             <Button Text="Add"
                     HorizontalOptions="Center"

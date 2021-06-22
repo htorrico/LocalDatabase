@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LocalDatabase.Models
+﻿namespace LocalDatabase.Models
 {
     public class Album
     {

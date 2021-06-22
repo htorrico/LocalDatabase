@@ -1,12 +1,9 @@
 ﻿using LocalDatabase.DataContext;
-using LocalDatabase.Interfaces;
 using LocalDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using Xamarin.Forms;
+
 
 namespace LocalDatabase.Services
 {
